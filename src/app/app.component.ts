@@ -14,7 +14,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
 
   chatItem = {
-    message: 'Initial name',
+    name: 'Initial name',
     avatar: 'https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg',
   }
 
@@ -22,7 +22,7 @@ export class AppComponent {
   changeChatItem() {
     const randomInt = Math.round(Math.random() * 10);
     this.chatItem = {
-      message: (new Date().getTime() % 9e6).toString(36),
+      name: 'Random ' + (new Date().getTime() % 9e6).toString(36),
       avatar: `https://icon-library.com/images/avatar-icon-images/avatar-icon-images-${ randomInt }.jpg`,
     }
   }

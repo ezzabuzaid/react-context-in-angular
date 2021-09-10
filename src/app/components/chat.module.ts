@@ -3,20 +3,18 @@ import { NgModule } from '@angular/core';
 import { ContextModule } from '../context';
 import { ColorAvatarComponent } from './chat-avatar';
 import { ChatContainerComponent } from './chat-container';
-import { ChatMessageComponent, TestChild } from './chat-message';
+import { ChatMessageComponent } from './chat-message';
 
 @NgModule({
     declarations: [
         ChatMessageComponent,
         ColorAvatarComponent,
         ChatContainerComponent,
-        TestChild,
     ],
     exports: [
         ChatMessageComponent,
         ColorAvatarComponent,
         ChatContainerComponent,
-        TestChild,
     ],
     imports: [
         CommonModule,

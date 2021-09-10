@@ -6,9 +6,9 @@ import { Component } from '@angular/core';
     <div style="display: flex;">
         <app-chat-avatar></app-chat-avatar>
         <app-chat-message></app-chat-message> 
-        <!-- <provider name="MyContext" [value]="{message:'Test'}">
+        <provider name="MyContext" [value]="{name:'Nested Provider Value'}">
             <app-chat-message></app-chat-message>
-        </provider> -->
+        </provider>
     </div>
     `
 })
