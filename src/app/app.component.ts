@@ -3,26 +3,24 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   template: `
-  <context name="MyContext">
-    <provider [value]="chatItem" name="MyContext">
+  <context name="ChatContext">
+    <provider [value]="chatItem" name="ChatContext">
       <app-chat-container></app-chat-container>
     </provider>
   </context>
-  <button (click)="changeChatItem()">Change Chat Item</button>
+  <button (click)="updateChatItem()">Change Chat Item</button>
   `
 })
 export class AppComponent {
-
   chatItem = {
-    name: 'Initial name',
+    message: 'Initial name',
     avatar: 'https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg',
   }
 
-
-  changeChatItem() {
+  updateChatItem() {
     const randomInt = Math.round(Math.random() * 10);
     this.chatItem = {
-      name: 'Random ' + (new Date().getTime() % 9e6).toString(36),
+      message: `Random ${ randomInt }`,
       avatar: `https://icon-library.com/images/avatar-icon-images/avatar-icon-images-${ randomInt }.jpg`,
     }
   }
