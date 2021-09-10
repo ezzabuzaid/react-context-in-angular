@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit, Optional, SimpleChanges, SkipSelf } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { ContextComponent } from './context.component';
-import { assertStringIsNotEmpty } from './utils';
+import { assertNotNullOrUndefined, assertStringIsNotEmpty } from './utils';
 
 @Component({
   selector: 'provider',
@@ -19,7 +19,7 @@ export class ProviderComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    assertStringIsNotEmpty('Provider name', this.name);
+    assertStringIsNotEmpty(this.name, 'Provider context name');
 
     if (this.value === undefined) {
       throw new Error(`Provider without value is worthless.`);
@@ -27,7 +27,8 @@ export class ProviderComponent implements OnInit, OnDestroy {
     if (this.context === null) {
       throw new Error('Non of provider ancestors is a context component, ensure you are using provider as context descendants.');
     }
-    this.providerContext = this.context.getContext(this.name);
+    this.providerContext = this.context.getContext(this.name)!;
+    assertNotNullOrUndefined(this.providerContext, `Provider context ${ this.name }`);
   }
 
   ngOnChanges(changes: SimpleChanges): void {

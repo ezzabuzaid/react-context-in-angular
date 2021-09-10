@@ -6,8 +6,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     template: `
     <consumer name="MyContext">
         <ng-template let-value>
-           value is {{value|json}}
-            <!-- <img width="50" [src]="value.avatar"> -->
+            <img width="50" [src]="value.avatar">
         </ng-template>
     </consumer>
     `

@@ -15,11 +15,8 @@ export class ContextComponent implements OnInit, OnChanges {
 
 
   ngOnInit(): void {
-    assertStringIsNotEmpty('Context name', this.name);
-    try {
-      this.getContext(this.name);
-      throw new Error(`Context ${ this.name } already exist.`);
-    } catch (error) { }
+    assertStringIsNotEmpty(this.name, 'Context name');
+    this.ensureContextUniqueness(this.name);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -27,6 +24,16 @@ export class ContextComponent implements OnInit, OnChanges {
     if (nameChange && !nameChange.isFirstChange()) {
       const { currentValue, previousValue } = nameChange;
       throw new Error(`Context name can be initialized only once.\n Original name ${ previousValue }\n New name ${ currentValue }`);
+    }
+  }
+
+  public ensureContextUniqueness(contextName: string) {
+    let context: ContextComponent | null = this.parentContext;
+    while (context !== null) {
+      if (context.name === contextName) {
+        throw new Error(`Context ${ this.name } already exist.`);
+      }
+      context = context.parentContext;
     }
   }
 
@@ -38,7 +45,7 @@ export class ContextComponent implements OnInit, OnChanges {
       }
       context = context.parentContext;
     }
-    throw new Error(`No context with name ${ contextName } is found.`);
+    return undefined;
   }
 
 }

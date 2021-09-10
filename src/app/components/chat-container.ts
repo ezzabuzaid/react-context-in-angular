@@ -4,13 +4,11 @@ import { Component } from '@angular/core';
     selector: 'app-chat-container',
     template: `
     <div style="display: flex;">
-        <provider name="MyContext" [value]="{message:'Test', avatar:'asa'}">
-            <app-chat-avatar></app-chat-avatar>
-        </provider>
+        <app-chat-avatar></app-chat-avatar>
         <app-chat-message></app-chat-message> 
-        <provider name="MyContext" [value]="{message:'Test'}">
+        <!-- <provider name="MyContext" [value]="{message:'Test'}">
             <app-chat-message></app-chat-message>
-        </provider>
+        </provider> -->
     </div>
     `
 })

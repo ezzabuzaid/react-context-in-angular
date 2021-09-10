@@ -2,7 +2,7 @@ import { Component, ContentChild, EmbeddedViewRef, Input, OnDestroy, OnInit, Opt
 import { Subscription } from 'rxjs';
 import { ProviderComponent } from './context-provider.component';
 import { ContextComponent } from './context.component';
-import { assertStringIsNotEmpty } from './utils';
+import { assertNotNullOrUndefined, assertStringIsNotEmpty } from './utils';
 
 
 @Component({
@@ -25,7 +25,7 @@ export class ConsumerComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    assertStringIsNotEmpty('Consumer name', this.name);
+    assertStringIsNotEmpty(this.name, 'Consumer context name');
 
     if (this.templateRef === undefined) {
       throw new Error(`
@@ -37,8 +37,9 @@ export class ConsumerComponent implements OnInit, OnDestroy {
       throw new Error('Non of consumer ancestors is a context component, ensure you are using consumer as context descendants.');
     }
 
-    this.consumerContext = this.context.getContext(this.name);
+    this.consumerContext = this.context.getContext(this.name)!;
     this.consumerProvider = this.provider?.getProvider?.(this.name);
+    assertNotNullOrUndefined(this.consumerContext, `Consumer context ${ this.name }`);
 
     if (this.consumerProvider) {
       this.providerValueChangesSubscription = this.consumerProvider
